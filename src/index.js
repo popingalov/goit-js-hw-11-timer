@@ -11,7 +11,7 @@ class CountdownTimer {
       fieldSecs: document.querySelector(`${this.selector} span[data-value="secs"]`),
     };
   }
-  start = () => {
+  start = (() => {
     setInterval(() => {
       const currentDate = Date.now();
       const newYearsDate = new Date(this.targetDate);
@@ -25,7 +25,7 @@ class CountdownTimer {
       this.refs.fieldMins.textContent = mins;
       this.refs.fieldSecs.textContent = secs;
     }, 1000);
-  };
+  })();
   getTimeComponents = time => {
     let days = Math.floor(time / 3600 / 24);
     let hours = Math.floor((time / 3600) % 24);
@@ -36,9 +36,6 @@ class CountdownTimer {
     secs = String(secs).padStart(2, '0');
     return { days, hours, mins, secs };
   };
-  autoStart = (() => {
-    this.start();
-  })();
 }
 
 const timer1 = new CountdownTimer({
